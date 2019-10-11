@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Transaction } from 'src/app/Models/Transaction';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { TransactionService } from 'src/app/Services/transaction.service';
 
 @Component({
   selector: 'app-transaction',
@@ -22,4 +23,15 @@ export class TransactionComponent {
   newTransferForm: FormGroup;
   newTransferDisabled: boolean = false;
   newTransferFormErrorMessages: any;
+
+  constructor(private transactionService: TransactionService) {
+
+    this.newDebitForm = new FormGroup({
+      debitAccountNumber: new FormControl(null, [Validators.required]),
+      ammount: new FormControl(null, [Validators.required]),
+
+
+
+    });
+  }
 }
