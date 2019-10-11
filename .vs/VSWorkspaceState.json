@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\AdminModule",
+    "\\src\\app\\Services"
+  ],
+  "SelectedNode": "\\src\\app\\AdminModule\\admin-routing.module.ts",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Pecunia</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/login' ] " [routerLinkActive]="['active']" *ngIf="!userAccountService.isLoggedIn">Login</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/admin', 'home' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn &&  userAccountService.currentUserType == 'Admin' ">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/admin', 'employees' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Admin'">Employees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/employee', 'customer' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Customer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/employee', 'account' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Account</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/employee', 'transaction' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Transaction</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/employee', 'loan' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Loans</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]=" [ '/employee', 'utilities' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Utilities</a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="#" onclick="return false" *ngIf="userAccountService.isLoggedIn " (click)="onLogOutClick()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>

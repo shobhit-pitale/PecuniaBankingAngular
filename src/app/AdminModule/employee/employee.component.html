@@ -1,0 +1,253 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+    <div class="p-2">
+      <h5>
+        Employees <span class="badge badge-secondary float-right" *ngIf="employees.length > 0">{{employees.length}}</span>
+      </h5>
+    </div>
+    <div class="list-group mb-5">
+      <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newEmployeeModal" (click)="onCreateEmployeeClick()">Create Employee</a>
+    </div>
+    <div class="p-2 border-top"><h5>View</h5></div>
+    <div class="px-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewEmployeeName" [(ngModel)]="viewEmployeeCheckBoxes.employeeName">
+        <label class="form-check-label" for="viewEmployeeName">
+          Employee Name
+        </label>
+      </div>
+     
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewEmail" [(ngModel)]="viewEmployeeCheckBoxes.email">
+        <label class="form-check-label" for="viewEmail">
+          Email
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewCreatedOn" [(ngModel)]="viewEmployeeCheckBoxes.createdOn">
+        <label class="form-check-label" for="viewCreatedOn">
+          Created On
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewLastModifiedOn" [(ngModel)]="viewEmployeeCheckBoxes.lastModifiedOn">
+        <label class="form-check-label" for="viewLastModifiedOn">
+          Last Modified On
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1" (click)="onViewSelectAllClick()">Select All</button>
+        <button class="btn btn-secondary btn-sm" (click)="onViewDeselectAllClick()">Deselect All</button>
+      </div>
+    </div>
+
+    <div class="p-2 border-top mt-4"><h5>Sort by</h5></div>
+    <div class="px-2">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="sortBy">
+          <option value="employeeName">Employee Name</option>
+          
+          <option value="email">Email</option>
+          <option value="creationDateTime">Created On</option>
+          <option value="lastModifiedDateTime">Last Modified On</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortAscending" value="ASC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortAscending">
+          Ascending
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortDescending" value="DESC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortDescending">
+          Descending
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1 px-3" (click)="onBtnSortClick()">Sort</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-lg-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Employees
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showEmployeesSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <!--<h4>Employees </h4>-->
+    <!--<button class="btn btn-primary" data-toggle="modal" data-target="#newEmployeeModal" (click)="onCreateEmployeeClick()">Create Employee</button>-->
+    <table class="table mt-2">
+      <thead>
+        <tr class="table-secondary">
+          <th *ngIf="viewEmployeeCheckBoxes.employeeName">Employee Name</th>
+          <th *ngIf="viewEmployeeCheckBoxes.mobile">Mobile</th>
+          <th *ngIf="viewEmployeeCheckBoxes.email">Email</th>
+          <th *ngIf="viewEmployeeCheckBoxes.createdOn">Created on</th>
+          <th *ngIf="viewEmployeeCheckBoxes.lastModifiedOn">Last Modified on</th>
+          <th class="text-secondary">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees; let index = index">
+          <td style="font-size:120%" *ngIf="viewEmployeeCheckBoxes.employeeName">{{employee.employeeName}}</td>
+          
+          <td *ngIf="viewEmployeeCheckBoxes.email">{{employee.email}}</td>
+          <td *ngIf="viewEmployeeCheckBoxes.createdOn">{{employee.creationDateTime}}</td>
+          <td *ngIf="viewEmployeeCheckBoxes.lastModifiedOn">{{employee.lastModifiedDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editEmployeeModal" (click)="onEditEmployeeClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteEmployeeModal" (click)="onDeleteEmployeeClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- New Employee Modal -->
+<form [formGroup]="newEmployeeForm">
+  <div class="modal fade" id="newEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Create Employee</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="employeeName" class="col-form-label col-md-4">Employee Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Employee Name" class="form-control" id="employeeName" formControlName="employeeName" [ngClass]="getFormControlCssClass(newEmployeeForm.get('employeeName'), newEmployeeForm)" />
+              <small class="form-text text-muted">Name of the employee | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('employeeName', 'required', newEmployeeForm)">{{getFormControlErrorMessage('employeeName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('employeeName', 'minlength', newEmployeeForm)">{{getFormControlErrorMessage('employeeName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('employeeName', 'maxlength', newEmployeeForm)">{{getFormControlErrorMessage('employeeName', 'maxlength')}}</span>
+            </div>
+          </div>
+          
+          <div class="form-group form-row">
+            <label for="email" class="col-form-label col-md-4">Email:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Email" class="form-control" id="email" formControlName="email" [ngClass]="getFormControlCssClass(newEmployeeForm.get('email'), newEmployeeForm)" />
+              <small class="form-text text-muted">Email address of the employee | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'required', newEmployeeForm)">{{getFormControlErrorMessage('email', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'email', newEmployeeForm)">{{getFormControlErrorMessage('email', 'email')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="password" class="col-form-label col-md-4">Password:</label>
+            <div class="col-md-8">
+              <input type="password" placeholder="Password" class="form-control" id="password" formControlName="password" [ngClass]="getFormControlCssClass(newEmployeeForm.get('password'), newEmployeeForm)" />
+              <small class="form-text text-muted">At least one uppercase letter, one lowercase letter and one digit.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('password', 'required', newEmployeeForm)">{{getFormControlErrorMessage('password', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('password', 'pattern', newEmployeeForm)">{{getFormControlErrorMessage('password', 'pattern')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnAddEmployeeCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onAddEmployeeClick($event)" [disabled]="newEmployeeDisabled">
+            <span *ngIf="!newEmployeeDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="newEmployeeDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- EditEmployee Modal -->
+<form [formGroup]="editEmployeeForm">
+  <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Update Employee</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="employeeName" class="col-form-label col-md-4">Employee Name:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Employee Name" class="form-control" id="employeeName" formControlName="employeeName" [ngClass]="getFormControlCssClass(editEmployeeForm.get('employeeName'), editEmployeeForm)" />
+              <small class="form-text text-muted">Name of the employee | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('employeeName', 'required', editEmployeeForm)">{{getFormControlErrorMessage('employeeName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('employeeName', 'minlength', editEmployeeForm)">{{getFormControlErrorMessage('employeeName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('employeeName', 'maxlength', editEmployeeForm)">{{getFormControlErrorMessage('employeeName', 'maxlength')}}</span>
+            </div>
+          </div>
+          
+          <div class="form-group form-row">
+            <label for="email" class="col-form-label col-md-4">Email:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Email" class="form-control" id="email" formControlName="email" [ngClass]="getFormControlCssClass(editEmployeeForm.get('email'), editEmployeeForm)" />
+              <small class="form-text text-muted">Email address of the employee | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'required', editEmployeeForm)">{{getFormControlErrorMessage('email', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'email', editEmployeeForm)">{{getFormControlErrorMessage('email', 'email')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnUpdateEmployeeCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onUpdateEmployeeClick($event)" [disabled]="editEmployeeDisabled">
+            <span *ngIf="!editEmployeeDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="editEmployeeDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Delete Employee Modal -->
+<form [formGroup]="deleteEmployeeForm">
+  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Delete Employee</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="mb-4">Are you sure to delete this Employee?</h5>
+          <div class="form-group form-row">
+            <label for="employeeName" class="col-form-label col-md-4">Employee Name:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Employee Name" readonly="readonly" class="form-control-plaintext" id="employeeName" formControlName="employeeName" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnDeleteEmployeeCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-danger" (click)="onDeleteEmployeeConfirmClick($event)" [disabled]="deleteEmployeeDisabled">
+            <span *ngIf="!deleteEmployeeDisabled"><i class="fa fa-save"></i> Delete</span>
+            <span *ngIf="deleteEmployeeDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Deleting</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
