@@ -28,9 +28,18 @@ export class TransactionComponent {
 
     this.newDebitForm = new FormGroup({
       debitAccountNumber: new FormControl(null, [Validators.required]),
-      ammount: new FormControl(null, [Validators.required]),
+      ammount: new FormControl(null, [Validators.required])
 
+    });
+    this.newCreditForm = new FormGroup({
+      crditAccountNumber: new FormControl(null, [Validators.required]),
+      ammount: new FormControl(null, [Validators.required])
 
+    });
+    this.newTransferForm = new FormGroup({
+      debitAccountNumber: new FormControl(null, [Validators.required]),
+      crditAccountNumber: new FormControl(null, [Validators.required]),
+      ammount: new FormControl(null, [Validators.required])
 
     });
   }
