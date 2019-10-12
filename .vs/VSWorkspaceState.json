@@ -5,10 +5,12 @@
     "\\src\\app",
     "\\src\\app\\AdminModule",
     "\\src\\app\\EmployeeModule",
-    "\\src\\app\\EmployeeModule\\transaction",
-    "\\src\\app\\Models",
+    "\\src\\app\\EmployeeModule\\accounts",
+    "\\src\\app\\EmployeeModule\\accounts\\regularaccounts",
+    "\\src\\app\\EmployeeModule\\Utilities\\chequebooks",
+    "\\src\\app\\FakeBackend",
     "\\src\\app\\Services"
   ],
-  "SelectedNode": "\\src\\app\\EmployeeModule\\transaction\\transaction.component.ts",
+  "SelectedNode": "\\src\\app\\Services\\regularaccounts.service.ts",
   "PreviewInSolutionExplorer": false
 }
