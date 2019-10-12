@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Transaction } from 'src/app/Models/Transaction';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TransactionService } from 'src/app/Services/transaction.service';
@@ -9,7 +9,7 @@ import { TransactionService } from 'src/app/Services/transaction.service';
   styleUrls: ['./transaction.component.scss']
   
 })
-export class TransactionComponent {
+export class TransactionComponent implements OnInit {
   transactions: Transaction[] = [];
 
   newDebitForm: FormGroup;
@@ -42,5 +42,15 @@ export class TransactionComponent {
       ammount: new FormControl(null, [Validators.required])
 
     });
+  }
+  ngOnInit() { }
+
+  onDebitFormClick() {
+    this.newDebitForm.reset();
+    this.newDebitForm["submitted"] = false;
+  }
+  onNewDebitClick() {
+    this.newDebitForm["submitted"] = true;
+    
   }
 }

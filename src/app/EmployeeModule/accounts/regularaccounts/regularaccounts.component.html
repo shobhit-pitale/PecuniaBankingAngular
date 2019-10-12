@@ -1,0 +1,384 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+    <div class="p-2">
+      <h5>
+        RegularAccounts <span class="badge badge-secondary float-right" *ngIf="regularaccounts.length > 0">{{regularaccounts.length}}</span>
+      </h5>
+    </div>
+    <div class="list-group mb-5">
+      <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newRegularAccountModal" (click)="onCreateRegularAccountClick()">Create Regular Account</a>
+    </div>
+    <div class="p-2 border-top"><h5>View</h5></div>
+    <div class="px-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewAccountID" [(ngModel)]="viewRegularAccountCheckBoxes.accountID">
+        <label class="form-check-label" for="viewAccountID">
+          Account ID
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewCustomerID" [(ngModel)]="viewRegularAccountCheckBoxes.customerID">
+        <label class="form-check-label" for="viewCustomerID">
+          Customer ID
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewAccountNo" [(ngModel)]="viewRegularAccountCheckBoxes.accountNo">
+        <label class="form-check-label" for="viewAccountNo">
+          Account No
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewAccountType" [(ngModel)]="viewRegularAccountCheckBoxes.accountType">
+        <label class="form-check-label" for="viewAccountType">
+          Account Type
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewBranch" [(ngModel)]="viewRegularAccountCheckBoxes.branch">
+        <label class="form-check-label" for="viewBranch">
+          Branch
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewStatus" [(ngModel)]="viewRegularAccountCheckBoxes.status">
+        <label class="form-check-label" for="viewStatus">
+          Status
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewCurrentBalance" [(ngModel)]="viewRegularAccountCheckBoxes.currentBalance">
+        <label class="form-check-label" for="viewStatus">
+          Current Balance
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewMinimumBalance" [(ngModel)]="viewRegularAccountCheckBoxes.minimumBalance">
+        <label class="form-check-label" for="viewStatus">
+          Minimum Balance
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewInterestRate" [(ngModel)]="viewRegularAccountCheckBoxes.interestRate">
+        <label class="form-check-label" for="viewInterestRate">
+          Interest Rate
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewCreatedOn" [(ngModel)]="viewRegularAccountCheckBoxes.creationDateTime">
+        <label class="form-check-label" for="viewCreatedOn">
+          Created On
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewLastModifiedOn" [(ngModel)]="viewRegularAccountCheckBoxes.lastModifiedDateTime">
+        <label class="form-check-label" for="viewLastModifiedOn">
+          Last Modified On
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1" (click)="onViewSelectAllClick()">Select All</button>
+        <button class="btn btn-secondary btn-sm" (click)="onViewDeselectAllClick()">Deselect All</button>
+      </div>
+    </div>
+
+    <div class="p-2 border-top mt-4"><h5>Sort by</h5></div>
+    <div class="px-2">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="sortBy">
+          <option value="accountNo">Account No</option>
+          <option value="accountType">Account Type</option>
+          <option value="branch">Branch</option>
+          <option value="status">Status</option>
+          <option value="currentBalance">Current Balance</option>
+          <option value="interestRate">Interest Rate</option>
+          <option value="creationDateTime">Created On</option>
+          <option value="lastModifiedDateTime">Last Modified On</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortAscending" value="ASC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortAscending">
+          Ascending
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortDescending" value="DESC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortDescending">
+          Descending
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1 px-3" (click)="onBtnSortClick()">Sort</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-lg-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          RegularAccounts
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showRegularAccountsSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <!--<h4>RegularAccounts </h4>-->
+    <!--<button class="btn btn-primary" data-toggle="modal" data-target="#newRegularAccountModal" (click)="onCreateRegularAccountClick()">Create RegularAccount</button>-->
+    <table class="table mt-2">
+      <thead>
+        <tr class="table-secondary">
+          <th *ngIf="viewRegularAccountCheckBoxes.id">ID</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.accountID">Account ID</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.customerID">Customer ID</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.accountNo">Account Number</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.accountType">Account Type</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.branch">Home Branch</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.status">Account Status</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.currentBalance">Current Balance</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.minimumBalance">Minimum Balance</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.interestRate">Interest Rate</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.creationDateTime">Created on</th>
+          <th *ngIf="viewRegularAccountCheckBoxes.lastModifiedDateTime">Last Modified on</th>
+          <th class="text-secondary">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let regularaccount of regularaccounts; let index = index">
+          <td *ngIf="viewRegularAccountCheckBoxes.id">{{regularaccount.id}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.accountID">{{regularaccount.accountID}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.customerID">{{regularaccount.customerID}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.accountNo">{{regularaccount.accountNo}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.accountType">{{regularaccount.accountType}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.branch">{{regularaccount.branch}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.status">{{regularaccount.status}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.currentBalance">{{regularaccount.currentBalance}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.minimumBalance">{{regularaccount.minimumBalance}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.interestRate">{{regularaccount.interestRate}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.creationDateTime">{{regularaccount.creationDateTime}}</td>
+          <td *ngIf="viewRegularAccountCheckBoxes.lastModifiedDateTime">{{regularaccount.lastModifiedDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editRegularAccountModal" (click)="onEditRegularAccountClick(index)">Update</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteRegularAccountModal" (click)="onDeleteRegularAccountClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Customer Verification Form -->
+<!--<form [formGroup]="customerForm">
+  <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal -lg" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Enter Customer No:</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <div class="col-md-4">
+              <input type="text" placeholder="Customer No" class="form-control" id="customerNo" formControlName="customerNo" [ngClass]="getFormControlCssClass(customerForm.get('customerNo'), customerForm)" />
+              <small class="form-text text-muted">Enter customer number.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('customerNo', 'required', customerForm)">{{getFormControlErrorMessage('customerForm', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierMobile', 'pattern', editSupplierForm)">{{getFormControlErrorMessage('', 'pattern')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnSearchCustomerCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onSearchCustomerClick($event)" [disabled]="customerSearchDisabled">
+            <span *ngIf="!customerSearchDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="customerSearchDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+ </form>-->
+
+        <!-- New Regular Account Modal -->
+        <form [formGroup]="newRegularAccountForm">
+          <div class="modal fade" id="newRegularAccountModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                  <h5 class="modal-title">Create Regular Account</h5>
+                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group form-row">
+                    <label for="accountType" class="col-form-label col-md-4">Account Type: </label>
+                    <div class="col-md-8">
+                      <select class="form-control" style="width:100%" id="accountType" formControlName="accountType" [ngClass]="getFormControlCssClass(newRegularAccountForm.get('accountType'), newRegularAccountForm)">
+
+                        <option value="Savings">Savings</option>
+                        <option value="Current">Current</option>
+                      </select>
+                      <small class="form-text text-muted">Select account type  </small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('accountType', 'required', newRegularAccountForm)">{{getFormControlErrorMessage('accountType', 'required')}}</span>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group form-row">
+                    <label for="branch" class="col-form-label col-md-4">Branch: </label>
+                    <div class="col-md-8">
+                      <select class="form-control" style="width:100%" id="branch" formControlName="branch" [ngClass]="getFormControlCssClass(newRegularAccountForm.get('branch'), newRegularAccountForm)">
+
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                      </select>
+                      <small class="form-text text-muted">Select home branch  </small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('branch', 'required', newRegularAccountForm)">{{getFormControlErrorMessage('branch', 'required')}}</span>
+                    </div>
+                  </div>
+
+                  <div class="form-group form-row">
+                    <label for="minimumBalance" class="col-form-label col-md-4">Minimum Balance: </label>
+                    <div class="col-md-8">
+                      <input type="number" placeholder="Minimum Balance" class="form-control" id="minimumBalance" formControlName="minimumBalance" [ngClass]="getFormControlCssClass(newRegularAccountForm.get('minimumBalance'), newRegularAccountForm)" />
+                      <small class="form-text text-muted">Enter minimum balance.</small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('minimumBalance', 'required', newRegularAccountForm)">{{getFormControlErrorMessage('minimumBalance', 'required')}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="interestRate" class="col-form-label col-md-4">Interest Rate: </label>
+                    <div class="col-md-8">
+                      <input type="number" placeholder="Interest Rate" class="form-control" id="" formControlName="interestRate" [ngClass]="getFormControlCssClass(newRegularAccountForm.get('interestRate'), newRegularAccountForm)" />
+                      <small class="form-text text-muted">Enter the interest rate.</small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('interestRate', 'required', newRegularAccountForm)">{{getFormControlErrorMessage('interestRate', 'required')}}</span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnAddRegularAccountCancel">
+                    <i class="fa fa-times-circle"></i> Cancel
+                  </button>
+                  <button type="submit" class="btn btn-success" (click)="onAddRegularAccountClick($event)" [disabled]="newRegularAccountDisabled">
+                    <span *ngIf="!newRegularAccountDisabled"><i class="fa fa-save"></i> Save</span>
+                    <span *ngIf="newRegularAccountDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Edit RegularAccount Modal -->
+        <form [formGroup]="editRegularAccountForm">
+          <div class="modal fade" id="editRegularAccountModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                  <h5 class="modal-title">Update Regular Account</h5>
+                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group form-row">
+                    <label for="accountType" class="col-form-label col-md-4">Account Type: </label>
+                    <div class="col-md-8">
+                      <select class="form-control" style="width:100%" id="accountType" formControlName="accountType" [ngClass]="getFormControlCssClass(editRegularAccountForm.get('accountType'), editRegularAccountForm)">
+                        <option value="Savings">Savings</option>
+                        <option value="Current">Current</option>
+                      </select>
+                      <small class="form-text text-muted">Select account type  </small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('accountType', 'required', editRegularAccountForm)">{{getFormControlErrorMessage('accountType', 'required')}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="branch" class="col-form-label col-md-4">Branch: </label>
+                    <div class="col-md-8">
+                      <select class="form-control" style="width:100%" id="branch" formControlName="branch" [ngClass]="getFormControlCssClass(editRegularAccountForm.get('branch'), editRegularAccountForm)">
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                      </select>
+                      <small class="form-text text-muted">Select home branch  </small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('branch', 'required', editRegularAccountForm)">{{getFormControlErrorMessage('branch', 'required')}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="minimumBalance" class="col-form-label col-md-4">Minimum Balance: </label>
+                    <div class="col-md-8">
+                      <input type="number" placeholder="Minimum Balance" class="form-control" id="minimumBalance" formControlName="minimumBalance" [ngClass]="getFormControlCssClass(editRegularAccountForm.get('minimumBalance'), editRegularAccountForm)" />
+                      <small class="form-text text-muted">Enter minimum balance.</small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('minimumBalance', 'required', editRegularAccountForm)">{{getFormControlErrorMessage('minimumBalance', 'required')}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="interestRate" class="col-form-label col-md-4">Interest Rate: </label>
+                    <div class="col-md-8">
+                      <input type="number" placeholder="Interest Rate" class="form-control" id="" formControlName="interestRate" [ngClass]="getFormControlCssClass(editRegularAccountForm.get('interestRate'), editRegularAccountForm)" />
+                      <small class="form-text text-muted">Enter the interest rate.</small>
+                      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('interestRate', 'required', editRegularAccountForm)">{{getFormControlErrorMessage('interestRate', 'required')}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnUpdateRegularAccountCancel">
+                    <i class="fa fa-times-circle"></i> Cancel
+                  </button>
+                  <button type="submit" class="btn btn-success" (click)="onUpdateRegularAccountClick($event)" [disabled]="editRegularAccountDisabled">
+                    <span *ngIf="!editRegularAccountDisabled"><i class="fa fa-save"></i> Save</span>
+                    <span *ngIf="editRegularAccountDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+        <!-- Delete RegularAccount Modal -->
+        <form [formGroup]="deleteRegularAccountForm">
+          <div class="modal fade" id="deleteRegularAccountModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                  <h5 class="modal-title">Delete Regular Account</h5>
+                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h5 class="mb-4">Are you sure to delete this account?</h5>
+                  <div class="form-group form-row">
+                    <label for="accountNo" class="col-form-label col-md-4">Account No:</label>
+                    <div class="col-md-8">
+                      <input type="text" placeholder="Account No" readonly="readonly" class="form-control-plaintext" id="accountNo" formControlName="accountNo" />
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnDeleteRegularAccountCancel">
+                    <i class="fa fa-times-circle"></i> Cancel
+                  </button>
+                  <button type="submit" class="btn btn-danger" (click)="onDeleteRegularAccountConfirmClick($event)" [disabled]="deleteRegularAccountDisabled">
+                    <span *ngIf="!deleteRegularAccountDisabled"><i class="fa fa-save"></i> Delete</span>
+                    <span *ngIf="deleteRegularAccountDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Deleting</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>>
+

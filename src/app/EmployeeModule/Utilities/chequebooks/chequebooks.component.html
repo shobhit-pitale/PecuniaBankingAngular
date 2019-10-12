@@ -1,0 +1,201 @@
+<form [formGroup]="accountForm">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]=" [ '/employees', 'homw' ] ">Employee</a></li>
+          <li class="breadcrumb-item"><a href="#">Employee</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Cheque Books
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="row">
+        <label for="accountNo" class="col-form-label col-lg-6">Account No:</label>
+        <div class="col-lg-10">
+          <div class="row">
+            <div class="col-sm-3 col-md-6 col-lg-8"><input type="text" placeholder="Account Number" class="form-control" id="accountNo" formControlName="accountNo" [ngClass]="getFormControlCssClass(accountForm.get('accountNo'), accountForm)" /></div>
+            <div class="col-sm-9 col-md-6 col-lg-4">
+              <button type="submit" class="btn btn-success" (click)="onOkClick($event)">
+                OK
+              </button>
+            </div>
+          </div>
+          <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('accountNo', 'required', accountForm)">{{getFormControlErrorMessage('accountNo', 'required')}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-lg-6 mt-2" *ngIf="showCustomerDetails">
+
+      <div class="card">
+        <div class="card-header">
+          Customer Details
+        </div>
+        <div class="card-body">
+          <div class="form-group form-row">
+            <label for="customerName" class="col-form-label col-md-4">Customer Name:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Customer Name" readonly="readonly" class="form-control-plaintext" id="customerName" formControlName="customerName" />
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="customerMobile" class="col-form-label col-md-4">Customer Mobile:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Customer Mobile" readonly="readonly" class="form-control-plaintext" id="customerMobile" formControlName="customerMobile" />
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="branchName" class="col-form-label col-md-4">Branch Name:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Branch Name" readonly="readonly" class="form-control-plaintext" id="branchName" formControlName="branchName" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+    <div class="col-lg-6 mt-2" *ngIf="showChequeBookHistory">
+
+      <div class="card">
+        <div class="card-header">
+          Chequebook history
+        </div>
+        <div class="card-body">
+          <table class="table table-sm">
+            <thead>
+              <tr class="table-secondary">
+                <th>Series Start</th>
+                <th>Number of leaves</th>
+                <th>Created on</th>
+                <th>Chequebook status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let approvedchequebook of approvedchequebooks; let i = index">
+
+                <td style="font-size:120%">{{approvedchequebook.seriesStart}}</td>
+                <td>{{approvedchequebook.numberOfLeaves}}</td>
+                <td>{{approvedchequebook.chequeBookRequestDate}}</td>
+                <td>{{approvedchequebook.chequeBookStatus}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6" *ngIf="showNewChequeBook">
+
+      <div class="card">
+        <div class="card-header">
+          New Cheque Book Request
+        </div>
+        <div class="card-body">
+          <div class="form-group form-row">
+            <label for="seriesStart" class="col-form-label col-md-4">Series Start:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Series Start" class="form-control" id="seriesStart" formControlName="seriesStart" [ngClass]="getFormControlCssClass(accountForm.get('seriesStart'), accountForm)" />
+              <small class="form-text text-muted">Series start cannot be blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('seriesStart', 'required', accountForm)">{{getFormControlErrorMessage('seriesStart', 'required')}}</span>
+
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="numberOfLeaves" class="col-form-label col-md-4">NumberOfLeaves: </label>
+            <div class="col-md-8">
+              <select class="form-control" style="width:100%" id="numberOfLeaves" formControlName="numberOfLeaves" [ngClass]="getFormControlCssClass(accountForm.get('numberOfLeaves'), accountForm)">
+
+                <option value=10>10</option>
+                <option value=20>20</option>
+                <option value=50>50</option>
+              </select>
+              <small class="form-text text-muted">Select number of leaves </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('numberOfLeaves', 'required', accountForm)">{{getFormControlErrorMessage('numberOfLeaves', 'required')}}</span>
+
+            </div>
+        </div>
+          <div class="form-group form-row">
+            <button type="button" class="btn btn-secondary" id="btnAddChequeBookCancel">
+              <i class="fa fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-success" (click)="onAddChequeBookClick($event)" [disabled]="newChequeBookDisabled">
+              <span *ngIf="!newChequeBookDisabled"><i class="fa fa-save"></i> Save</span>
+              <span *ngIf="newChequeBookDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+
+
+
+
+    <div class="col-lg-6" *ngIf="showPendingChequeBookHistory">
+
+      <div class="card">
+        <div class="card-header">
+          Pending Cheque Book List
+        </div>
+        <div class="card-body">
+          <table class="table mt-2">
+            <thead>
+              <tr class="table-secondary">
+
+                <th>Series Start</th>
+                <th>Number of leaves</th>
+                <th>Created on</th>
+                <th>Chequebook status</th>
+                <th class="text-secondary">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pendingchequebook of pendingchequebooks; let i = index">
+                <td style="font-size:120%">{{pendingchequebook.seriesStart}}</td>
+                <td>{{pendingchequebook.numberOfLeaves}}</td>
+                <td>{{pendingchequebook.chequeBookRequestDate}}</td>
+                <td>{{pendingchequebook.chequeBookStatus}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-secondary" (click)="onApproveChequeBookClick(i)">
+                      Approve
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+
+
+</form>
+
+
+

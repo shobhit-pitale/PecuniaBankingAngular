@@ -3,14 +3,14 @@ import { Employee } from '../../Models/Employee';
 import { EmployeesService } from '../../Services/employee.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as $ from "jquery";
-import { EmployeeComponentBase } from '../../employee-component';
+import { PecuniaComponentBase } from '../../pecunia-component';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.scss']
 })
-export class EmployeesComponent extends EmployeeComponentBase implements OnInit {
+export class EmployeesComponent extends PecuniaComponentBase implements OnInit {
   employees: Employee[] = [];
   showEmployeesSpinner: boolean = false;
   viewEmployeeCheckBoxes: any;

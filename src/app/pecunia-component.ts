@@ -1,6 +1,6 @@
 import { FormGroup, ValidationErrors } from '@angular/forms';
 
-export class EmployeeComponentBase
+export class PecuniaComponentBase
 {
   getFormGroupErrors(formGroup: FormGroup)
   {

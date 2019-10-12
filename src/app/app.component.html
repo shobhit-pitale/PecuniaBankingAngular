@@ -19,16 +19,24 @@
         <a class="nav-link" [routerLink]=" [ '/employee', 'customer' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Customer</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]=" [ '/employee', 'account' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Account</a>
+        <a class="nav-link" [routerLink]=" [ '/employee', 'regularaccounts' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'"> Accounts</a>
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link" [routerLink]=" [ '/employee', 'transaction' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Transaction</a>
-      </li>
+      </li>-->
       <li class="nav-item">
         <a class="nav-link" [routerLink]=" [ '/employee', 'loan' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Loans</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]=" [ '/employee', 'utilities' ] " [routerLinkActive]="['active']" *ngIf="userAccountService.isLoggedIn && userAccountService.currentUserType == 'Employee'">Utilities</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="userAccountService.isLoggedIn &&  userAccountService.currentUserType == 'Employee' ">
+         Utilities
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]=" [ '/employee', 'chequebooks' ] " [routerLinkActive]="['active']">Cheque Books</a>
+          <a class="dropdown-item" [routerLink]=" [ '/employee', 'debitcards' ] " [routerLinkActive]="['active']">Debit cards</a>
+
+          
+        </div>
       </li>
 
 

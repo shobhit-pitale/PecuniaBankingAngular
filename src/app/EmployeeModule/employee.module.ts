@@ -4,6 +4,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { CustomersComponent } from './customers/customers.component';
+import { ChequeBooksComponent } from './Utilities/chequebooks/chequebooks.component';
+import { DebitCardsComponent } from './Utilities/debitcards/debitcards.component';
+import { RegularAccountsComponent } from './accounts/regularaccounts/regularaccounts.component';
 
 
 
@@ -11,7 +15,11 @@ import { TransactionComponent } from './transaction/transaction.component';
 @NgModule({
   declarations: [
     EmployeeHomeComponent,
-    TransactionComponent
+    CustomersComponent,
+    TransactionComponent,
+    ChequeBooksComponent,
+    DebitCardsComponent,
+    RegularAccountsComponent
 
 
 
@@ -27,7 +35,11 @@ import { TransactionComponent } from './transaction/transaction.component';
 
     EmployeeRoutingModule,
     EmployeeHomeComponent,
-    TransactionComponent
+    CustomersComponent,
+    TransactionComponent,
+    ChequeBooksComponent,
+    DebitCardsComponent,
+    RegularAccountsComponent
   ]
 })
 export class EmployeeModule { }

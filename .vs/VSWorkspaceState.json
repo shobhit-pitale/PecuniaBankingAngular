@@ -4,8 +4,11 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\AdminModule",
+    "\\src\\app\\EmployeeModule",
+    "\\src\\app\\EmployeeModule\\transaction",
+    "\\src\\app\\Models",
     "\\src\\app\\Services"
   ],
-  "SelectedNode": "\\src\\app\\AdminModule\\admin-routing.module.ts",
+  "SelectedNode": "\\src\\app\\EmployeeModule\\transaction\\transaction.component.ts",
   "PreviewInSolutionExplorer": false
 }
