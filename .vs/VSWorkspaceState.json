@@ -4,13 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\AdminModule",
+    "\\src\\app\\AdminModule\\employee",
     "\\src\\app\\EmployeeModule",
-    "\\src\\app\\EmployeeModule\\accounts",
-    "\\src\\app\\EmployeeModule\\accounts\\regularaccounts",
+    "\\src\\app\\EmployeeModule\\transaction",
+    "\\src\\app\\EmployeeModule\\Utilities",
     "\\src\\app\\EmployeeModule\\Utilities\\chequebooks",
-    "\\src\\app\\FakeBackend",
     "\\src\\app\\Services"
   ],
-  "SelectedNode": "\\src\\app\\Services\\regularaccounts.service.ts",
+  "SelectedNode": "\\src\\app\\EmployeeModule\\transaction\\transaction.component.ts",
   "PreviewInSolutionExplorer": false
 }
