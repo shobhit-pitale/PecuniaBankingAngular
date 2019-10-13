@@ -115,7 +115,7 @@ export class ChequeBooksComponent extends PecuniaComponentBase implements OnInit
       var requested = "Requested";
       console.log(this.accountForm.value);
       var chequebook: ChequeBook = new ChequeBook(0, null, this.account[0].accountID, this.account[0].accountNo,
-        this.accountForm.value.seriesStart, this.accountForm.value.numberOfLeaves,"Requested", null, null);
+        this.accountForm.value.seriesStart, this.accountForm.value.numberOfLeaves, "Requested", null, null);
 
       this.chequebooksService.AddChequeBook(chequebook).subscribe((addResponse) => {
 
@@ -126,7 +126,7 @@ export class ChequeBooksComponent extends PecuniaComponentBase implements OnInit
 
           this.showSpinner = false;
           this.pendingchequebooks = getResponse;
-         
+          alert(this.pendingchequebooks.length);
         }, (error) => {
           console.log(error);
         });
@@ -143,12 +143,12 @@ export class ChequeBooksComponent extends PecuniaComponentBase implements OnInit
 
   onApproveChequeBookClick(index: number) {
 
-  
+
     var acc = this.accountForm.value;
     var requested = "Requested";
     var approved = "Approved";
-    
-    var chequebook: ChequeBook = this.pendingchequebooks[index]; 
+
+    var chequebook: ChequeBook = this.pendingchequebooks[index];
 
     this.chequebooksService.UpdateChequeBook(chequebook).subscribe((updateResponse) => {
       this.chequebooksService.GetChequeBooksByAccountIDAndStatus(this.account[0].accountID, requested).subscribe((getResponse) => {
@@ -163,7 +163,7 @@ export class ChequeBooksComponent extends PecuniaComponentBase implements OnInit
         this.showChequeBookHistory = true;
         this.showSpinner = false;
         this.approvedchequebooks = getResponse;
-       
+        alert(this.approvedchequebooks.length);
       }, (error) => {
         console.log(error);
       });

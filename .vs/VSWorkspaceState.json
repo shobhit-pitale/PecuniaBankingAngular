@@ -6,11 +6,12 @@
     "\\src\\app\\AdminModule",
     "\\src\\app\\AdminModule\\employee",
     "\\src\\app\\EmployeeModule",
-    "\\src\\app\\EmployeeModule\\transaction",
+    "\\src\\app\\EmployeeModule\\accounts",
+    "\\src\\app\\EmployeeModule\\accounts\\regularaccounts",
     "\\src\\app\\EmployeeModule\\Utilities",
     "\\src\\app\\EmployeeModule\\Utilities\\chequebooks",
-    "\\src\\app\\Services"
+    "\\src\\app\\Models"
   ],
-  "SelectedNode": "\\src\\app\\EmployeeModule\\transaction\\transaction.component.ts",
+  "SelectedNode": "\\src\\app\\EmployeeModule\\Utilities\\chequebooks\\chequebooks.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -14,17 +14,13 @@ import { Customer } from 'src/app/Models/customer';
 })
 export class RegularAccountsComponent extends PecuniaComponentBase implements OnInit {
   regularaccounts: RegularAccount[] = [];
+  customer: Customer[] = [];
   showRegularAccountSpinner: boolean = false;
   viewRegularAccountCheckBoxes: any;
 
   newAccountNo: number = 0;
   sortBy: string = "accountType";
   sortDirection: string = "ASC";
-
-
-  customerForm = FormGroup;
-  customerFormDisabled: boolean = false;
-  customerFormErrorMessages: any;
 
   newRegularAccountForm: FormGroup;
   newRegularAccountDisabled: boolean = false;
@@ -37,29 +33,11 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
   deleteRegularAccountForm: FormGroup;
   deleteRegularAccountDisabled: boolean = false;
 
-  constructor(private regularaccountsService: RegularAccountsService) {
+  constructor(private regularaccountsService: RegularAccountsService, private customersService: CustomersService) {
     super();
 
-    //this.customerForm = new FormGroup({
-    //  customerNo: new FormControl(null, [Validators.required, Validators.pattern(/^[1]\d{6}$/)]),
-    //});
-
-    //this.customerFormErrorMessages = {
-    //  cutomerNo: { required: "Customer Number can't be blank", pattern: "6 digit customer number is required" },
-    //};
-
-
-    this.newRegularAccountFormErrorMessages = {
-      //accountNo: { required: "AccountNo can't be blank", pattern: "10 digit Mobile number is required" },
-      accountType: { required: "Account Type can't be blank" },
-      branch: { required: "Branch can't be blank" },
-      minimumBalance: { required: "Minimum Balance can't be blank" },
-      interestRate: { required: "Interest Rate can't be blank" }
-    };
-
-
     this.newRegularAccountForm = new FormGroup({
-      //accountNo: new FormControl(null, [Validators.required, Validators.pattern(/^[1]\d{9}$/)]),
+      customerID: new FormControl(null, [Validators.required]),
       accountType: new FormControl(null, [Validators.required]),
       branch: new FormControl(null, [Validators.required]),
       minimumBalance: new FormControl(null, [Validators.required]),
@@ -68,6 +46,7 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
 
     this.newRegularAccountFormErrorMessages = {
       //accountNo: { required: "AccountNo can't be blank", pattern: "10 digit Mobile number is required" },
+      customerID: { required: "Customer ID can't be blank" },
       accountType: { required: "Account Type can't be blank" },
       branch: { required: "Branch can't be blank" },
       minimumBalance: { required: "Minimum Balance can't be blank" },
@@ -97,7 +76,7 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
       interestRate: { required: "Interest Rate can't be blank" }
     };
 
-  
+
     this.viewRegularAccountCheckBoxes = {
 
       id: true,
@@ -137,49 +116,16 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
       this.regularaccounts = response;
       this.showRegularAccountSpinner = false;
 
-            for (var i = 0; i < this.regularaccounts.length; i++) {
-              this.newAccountNo = this.regularaccounts[i].accountNo;
-            }
-            this.newAccountNo += 1;
+      for (var i = 0; i < this.regularaccounts.length; i++) {
+        this.newAccountNo = this.regularaccounts[i].accountNo;
+      }
+      this.newAccountNo += 1;
 
     }, (error) => {
-        console.log(error);
-      })
+      console.log(error);
+    })
   }
 
-  //onClickRegularAccountClick() {
-  //  this.newRegularAccountForm.reset();
-  //  this.newRegularAccountForm["submitted"] = false;
-  //}
-
-  //onSearchCustomerClick(event) {
-  //  this.customerForm["submitted"] = true;
-  //  if (this.customerForm.valid) {
-
-  //    var customerNo: string = this.customerForm.value;
-
-  //    this.c.DeleteAccount(regularaccount).subscribe((deleteResponse) => {
-  //      this.deleteRegularAccountForm.reset();
-  //      $("#btnDeleteRegularAccountCancel").trigger("click");
-  //      this.deleteRegularAccountDisabled = false;
-  //      this.showRegularAccountSpinner = true;
-
-  //      this.regularaccountsService.GetAllAccounts().subscribe((getResponse) => {
-  //        this.showRegularAccountSpinner = false;
-  //        this.regularaccounts = getResponse;
-  //      }, (error) => {
-  //        console.log(error);
-  //      });
-  //    },
-  //      (error) => {
-  //        console.log(error);
-  //        this.deleteRegularAccountDisabled = false;
-  //      });
-  //  }
-  //  else {
-  //    super.getFormGroupErrors(this.deleteRegularAccountForm);
-  //  }
-  //}
 
 
   onCreateRegularAccountClick() {
@@ -187,34 +133,45 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
     this.newRegularAccountForm["submitted"] = false;
   }
 
-  
+
   onAddRegularAccountClick(event) {
     this.newRegularAccountForm["submitted"] = true;
     if (this.newRegularAccountForm.valid) {
       this.newRegularAccountDisabled = true;
       var regularaccount: RegularAccount = this.newRegularAccountForm.value;
 
-      this.regularaccountsService.CreateAccount(regularaccount, this.newAccountNo).subscribe((addResponse) => {
-        this.newRegularAccountForm.reset();
-        $("#btnAddRegularAccountCancel").trigger("click");
-        this.newRegularAccountDisabled = false;
-        this.showRegularAccountSpinner = true;
-        this.newAccountNo += 1;
+      this.customersService.GetCustomerByCustomerID(regularaccount.customerID).subscribe((customerresponse) => {
+        this.customer = customerresponse;
 
-        
-          this.regularaccountsService.GetAllAccounts().subscribe((getResponse) => {
-          this.showRegularAccountSpinner = false;
-          this.regularaccounts = getResponse;
+        if (this.customer[0] != null) {
 
-            
-        }, (error) => {
+          this.regularaccountsService.CreateAccount(regularaccount, this.newAccountNo).subscribe((addResponse) => {
+            this.newRegularAccountForm.reset();
+            $("#btnAddRegularAccountCancel").trigger("click");
+            this.newRegularAccountDisabled = false;
+            this.showRegularAccountSpinner = true;
+            this.newAccountNo += 1;
+          }, (error) => {
             console.log(error);
           });
-      },
-        (error) => {
-          console.log(error);
-          this.newRegularAccountDisabled = false;
-        });
+
+          this.regularaccountsService.GetAllAccounts().subscribe((getResponse) => {
+            this.showRegularAccountSpinner = false;
+            this.regularaccounts = getResponse;
+          }, (error) => {
+            console.log(error);
+
+          });
+        }
+        if (this.customer[0] == null) {
+          alert("No customer with this Customer ID exists! Add this customer first.");
+          //this.newRegularAccountDisabled = false;
+        }
+      }, (error) => {
+        console.log(error);
+        this.newRegularAccountDisabled = false;
+      });
+
     }
     else {
       super.getFormGroupErrors(this.newRegularAccountForm);
@@ -276,8 +233,8 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
           this.showRegularAccountSpinner = false;
           this.regularaccounts = getResponse;
         }, (error) => {
-            console.log(error);
-          });
+          console.log(error);
+        });
       },
         (error) => {
           console.log(error);
@@ -289,7 +246,7 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
     }
   }
 
-  
+
   onDeleteRegularAccountClick(index) {
     this.deleteRegularAccountForm.reset();
     this.deleteRegularAccountForm["submitted"] = false;
@@ -326,8 +283,8 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
           this.showRegularAccountSpinner = false;
           this.regularaccounts = getResponse;
         }, (error) => {
-            console.log(error);
-          });
+          console.log(error);
+        });
       },
         (error) => {
           console.log(error);
@@ -339,7 +296,7 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
     }
   }
 
-  
+
 
 
 
@@ -387,6 +344,9 @@ export class RegularAccountsComponent extends PecuniaComponentBase implements On
 
   }
 }
+
+
+
 
 
 
