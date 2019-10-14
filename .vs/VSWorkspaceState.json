@@ -7,7 +7,6 @@
     "\\src\\app\\EmployeeModule",
     "\\src\\app\\EmployeeModule\\accounts",
     "\\src\\app\\EmployeeModule\\accounts\\regularaccounts",
-    "\\src\\app\\EmployeeModule\\Utilities\\chequebooks",
     "\\src\\app\\FakeBackend",
     "\\src\\app\\Services"
   ],
