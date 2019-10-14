@@ -8,6 +8,11 @@
     <div class="list-group mb-5">
       <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newRegularAccountModal" (click)="onCreateRegularAccountClick()">Create Regular Account</a>
     </div>
+    <div class="list-group mb-5">
+      <button type ="submit" class="list-group-item list-group-item-action list-group-item-primary"[routerLink]="['/employee','customer']" [routerLinkActive]="['active']">
+      Add Customer
+      </button>
+    </div>
     <div class="p-2 border-top"><h5>View</h5></div>
     <div class="px-2">
       <div class="form-check">
