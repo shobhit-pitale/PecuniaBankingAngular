@@ -11,9 +11,9 @@ export class ChequeBooksService {
   }
 
   AddChequeBook(chequebook: ChequeBook): Observable<boolean> {
-    
-    chequebook.chequeBookRequestDate= new Date().toLocaleDateString();
-    chequebook.lastModifiedDate= new Date().toLocaleDateString();
+
+    chequebook.chequeBookRequestDate = new Date().toLocaleDateString();
+    chequebook.lastModifiedDate = new Date().toLocaleDateString();
     chequebook.chequeBookID = this.uuidv4();
     chequebook.chequeBookStatus = 'Requested';
     return this.httpClient.post<boolean>(`/api/chequebooks`, chequebook);
@@ -28,11 +28,11 @@ export class ChequeBooksService {
   GetAllChequeBooks(): Observable<ChequeBook[]> {
     return this.httpClient.get<ChequeBook[]>(`/api/chequebooks`);
   }
-  
+
   GetChequeBookByChequeBookID(ChequeBookID: number): Observable<ChequeBook> {
     return this.httpClient.get<ChequeBook>(`/api/chequebooks?chequeBookID=${ChequeBookID}`);
   }
-  
+
   GetChequeBooksByAccountID(AccountID: string): Observable<ChequeBook[]> {
     return this.httpClient.get<ChequeBook[]>(`/api/chequebooks?accountID=${AccountID}`);
   }

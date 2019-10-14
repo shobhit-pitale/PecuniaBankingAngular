@@ -4,12 +4,19 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\AdminModule",
+    "\\src\\app\\AdminModule\\employee",
     "\\src\\app\\EmployeeModule",
     "\\src\\app\\EmployeeModule\\accounts",
     "\\src\\app\\EmployeeModule\\accounts\\regularaccounts",
+<<<<<<< HEAD
     "\\src\\app\\FakeBackend",
     "\\src\\app\\Services"
+=======
+    "\\src\\app\\EmployeeModule\\Utilities",
+    "\\src\\app\\EmployeeModule\\Utilities\\chequebooks",
+    "\\src\\app\\Models"
+>>>>>>> 779d96c8420bbc81d8f6d2140f30c28e4fac44c7
   ],
-  "SelectedNode": "\\src\\app\\Services\\regularaccounts.service.ts",
+  "SelectedNode": "\\src\\app\\EmployeeModule\\Utilities\\chequebooks\\chequebooks.component.ts",
   "PreviewInSolutionExplorer": false
 }

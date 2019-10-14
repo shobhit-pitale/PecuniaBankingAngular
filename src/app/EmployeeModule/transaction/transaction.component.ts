@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Transaction } from 'src/app/Models/Transaction';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TransactionService } from 'src/app/Services/transaction.service';
+import { RegularAccountsService } from '../../Services/regularaccounts.service';
+import { RegularAccount } from '../../Models/regularaccount';
 
 @Component({
   selector: 'app-transaction',
@@ -24,7 +26,9 @@ export class TransactionComponent implements OnInit {
   newTransferDisabled: boolean = false;
   newTransferFormErrorMessages: any;
 
-  constructor(private transactionService: TransactionService) {
+  account: RegularAccount[] = [];
+
+  constructor(private transactionService: TransactionService, private regularaccountsService: RegularAccountsService) {
 
     this.newDebitForm = new FormGroup({
       debitAccountNumber: new FormControl(null, [Validators.required]),
@@ -51,6 +55,18 @@ export class TransactionComponent implements OnInit {
   }
   onNewDebitClick() {
     this.newDebitForm["submitted"] = true;
+    var debitAccount = this.newDebitForm.value;
+    this.regularaccountsService.GetAccountByAccountNo(debitAccount.accountNo).subscribe(
+      (getResponse) => {
+        this.account = getResponse;
+
+        if (this.account[0] != null) {
+
+
+        }
+      }, (error) => { }
+
+      )
     
   }
 }
