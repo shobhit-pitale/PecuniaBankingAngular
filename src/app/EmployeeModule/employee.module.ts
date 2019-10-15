@@ -8,6 +8,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { ChequeBooksComponent } from './Utilities/chequebooks/chequebooks.component';
 import { DebitCardsComponent } from './Utilities/debitcards/debitcards.component';
 import { RegularAccountsComponent } from './accounts/regularaccounts/regularaccounts.component';
+import { CarLoansComponent } from './CarLoans/CarLoans.component';
 
 
 
@@ -19,7 +20,8 @@ import { RegularAccountsComponent } from './accounts/regularaccounts/regularacco
     TransactionComponent,
     ChequeBooksComponent,
     DebitCardsComponent,
-    RegularAccountsComponent
+    RegularAccountsComponent,
+    CarLoansComponent
 
 
 
@@ -39,7 +41,8 @@ import { RegularAccountsComponent } from './accounts/regularaccounts/regularacco
     TransactionComponent,
     ChequeBooksComponent,
     DebitCardsComponent,
-    RegularAccountsComponent
+    RegularAccountsComponent,
+    CarLoansComponent
   ]
 })
 export class EmployeeModule { }

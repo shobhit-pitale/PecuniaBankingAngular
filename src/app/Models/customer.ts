@@ -16,6 +16,7 @@ export class Customer
   creationDateTime: string;
   lastModifiedDateTime: string;
 
+
   //constructor for customer
   constructor(ID: number, CustomerID: string, CustomerNumber: number, CustomerName: string, CustomerMobile: string, Email: string, CustomerAddress: string, AadharNumber: string, CustomerDOB: string, CustomerGender: string,PANNumber:string, CreationDateTime: string, LastModifiedDateTime: string)
   {

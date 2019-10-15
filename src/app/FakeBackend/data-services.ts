@@ -7,6 +7,10 @@ import { Customer } from '../Models/customer';
 import { RegularAccount } from '../Models/regularaccount';
 import { ChequeBook } from '../Models/chequebook';
 import { DebitCard } from '../Models/debitcard';
+import { CarLoan } from '../Models/CarLoans';
+import { PersonalLoan } from '../Models/PersonalLoan';
+import { HomeLoan } from '../Models/HomeLoan';
+import { EducationLoan } from '../Models/EducationLoan';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +57,37 @@ export class PecuniaDataService implements InMemoryDbService {
       new DebitCard(2, "f9678037-93ef-41f7-9493-aa4c3e55fded", "10c8cc37-5717-4333-8d02-ddeb47dc34e3", "akhil", 100010001001, "10/2019", "Visa", "Blocked", "05/10/2019", "09/10/2019")
 
     ];
+    let carloans =
+      [
+        new CarLoan("AXAX", "100001", "CL001", "Car", "Pending", 100000, 5, "AB1220991234567", "10/3/2019", "10/4/2019"),
+        new CarLoan("AXEX", "100002", "CL002", "Car", "Pending", 200000, 10, "CG0720991234567", "9/6/2019", "5/7/2019"),
+        new CarLoan("AXDX", "100003", "CL003", "Car", "Pending", 3000000, 4, "MH0120991234567", "1/5/2017", "15/11/2018"),
+        new CarLoan("AXCX", "100004", "CL004", "Car", "Pending", 4000000, 5, "DL0120991234567", "2/7/2019", "12/1/2019")
+      ];
+
+    let homeloans =
+      [
+        new HomeLoan("AXAN", "100001", "HL001", "Home", "Pending", 500000, 5, 1000000, "10/3/2019", "10/4/2019"),
+        new HomeLoan("AXAM", "100005", "HL002", "Home", "Pending", 600000, 10, 3000000, "9/6/2019", "5/7/2019"),
+        new HomeLoan("AXAC", "100006", "HL003", "Home", "Pending", 7000000, 4, 5000000, "1/5/2017", "15/11/2018"),
+        new HomeLoan("AXAV", "100004", "HL004", "Home", "Pending", 8000000, 5, 7000000, "2/7/2019", "12/1/2019")
+      ];
+
+    let personalloans =
+      [
+        new PersonalLoan("AXAL", "100001", "PL001", "Personal", "Medical", "Pending", 900000, 5, 9000000, "10/3/2019", "10/4/2019"),
+        new PersonalLoan("AXAO", "100007", "PL002", "Personal", "Medical", "Pending", 1000000, 10, 11000000, "9/6/2019", "5/7/2019"),
+        new PersonalLoan("AXAJ", "100008", "PL003", "Personal", "Medical", "Pending", 11000000, 4, 13000000, "1/5/2017", "15/11/2018"),
+        new PersonalLoan("AXAU", "100004", "PL004", "Personal", "Medical", "Pending", 12000000, 5, 15000000, "2/7/2019", "12/1/2019")
+      ];
+    let educationloans =
+      [
+        new EducationLoan("AXAS", "100001", "EL001", "Education", "Pending", 1300000, 5, 17000000, "IIT B", "10/3/2019", "10/4/2019"),
+        new EducationLoan("AXAW", "100009", "EL002", "Education", "Pending", 1400000, 10, 19000000, "NIT RR", "9/6/2019", "5/7/2019"),
+        new EducationLoan("AXAD", "100010", "EL003", "Education", "Pending", 15000000, 4, 21000000, "MIT", "1/5/2017", "15/11/2018"),
+        new EducationLoan("AXAE", "100004", "EL004", "Education", "Pending", 16000000, 5, 23000000, "Stanford", "2/7/2019", "12/1/2019")
+      ];
     
-    return { admins, employees, customers, regularaccounts, chequebooks, debitcards };
+    return { admins, employees, customers, regularaccounts, chequebooks, debitcards,carloans,homeloans,personalloans,educationloans };
   }
 }

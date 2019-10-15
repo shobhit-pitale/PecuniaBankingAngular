@@ -64,6 +64,10 @@ export class CustomersService
   {
     return this.httpClient.get<Customer>(`/api/customers?panNumber=${PANNumber}`);
   }
+
+  GetCarLoanBYCustomerID(CustomerID: string): Observable<Customer[]> {
+    return this.httpClient.get<Customer[]>(`/api/customers?customerID=${CustomerID}`);
+  }
   //Function for generating Customer ID
   uuidv4()
   {

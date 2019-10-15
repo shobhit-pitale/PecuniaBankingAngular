@@ -1,0 +1,490 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+
+    <div class="p-2">
+      <h4>
+        Loan <span class="badge badge-light float-right">{{carloans.length + homeloans.length + educationloans.length + personalloans.length}}</span>
+      </h4>
+    </div>
+
+    <div class="list-group mb-5"></div>
+
+    <div class="list-group mb-0.1">
+      <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onApplyforLoanClick()">Apply For Loan</a>
+    </div>
+
+
+    <div class="list-group mb-0.1">
+      <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onListofLoanClick()">Car Loan List</a>
+    </div>
+
+
+
+    <div class="list-group mb-0.1">
+      <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onYourLoanClick()">Loan BY ID Loan</a>
+    </div>
+
+
+    <div *ngIf="LoanListClick">
+      <div class="list-group mb-0.1">
+        <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onListofCarLoanClick()">Car Loan List <span class="badge badge-light float-right">{{carloans.length}}</span></a>
+      </div>
+
+
+      <div class="list-group mb-0.1">
+        <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onListofHomeLoanClick()">Home Loan List<span class="badge badge-light float-right">{{homeloans.length}}</span></a>
+      </div>
+
+
+
+      <div class="list-group mb-0.1">
+        <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onListofEducationLoanClick()">Education Loan List<span class="badge badge-light float-right">{{educationloans.length}}</span></a>
+      </div>
+
+      <div class="list-group mb-0.1">
+        <a class="list-group-item list-group-item-action list-group-item-primary" (click)="onListofPersonalLoanClick()">Personal Loan List<span class="badge badge-light float-right">{{personalloans.length}}</span></a>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div class=" col-md-9 col-lg-10" *ngIf="ApplyLoanClick">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Banking</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Car Loans
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showSuppliersSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <div>
+    </div>
+
+
+    <form [formGroup]="newCarLoan">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputcustomerNumber">Customer Number</label>
+          <input class="form-control" id="inputcustomerNumber" placeholder="Customer Number" formControlName="customerNumber">
+        </div>
+      </div>
+      <button class="btn btn-primary" type="reset" (click)="onResetLoanClick()">Reset</button>
+      <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+      <button type="submit" class="btn btn-primary " (click)="onSubmitNumberClick()">Submit</button>
+    </form>
+
+
+    <div>
+      <div *ngIf="SubmitNumber">
+
+        <div class="list-group mb-5">
+        </div>
+
+        <table class="table mt-2">
+          <thead>
+            <tr class="table-secondary">
+              <th>Index</th>
+              <th>Customer Number</th>
+              <th>Customer Name</th>
+              <th>Email Id</th>
+              <th>Customer Mobile</th>
+              <th>Created on</th>
+
+
+            </tr>
+          </thead>
+          <tr *ngFor="let customer of customers; let i = index ">
+            <td>{{i}}</td>
+            <td>{{customer.customerNumber}}</td>
+            <td>{{customer.customerName}}</td>
+            <th>{{customer.email}}</th>
+            <th>{{customer.customerMobile}}</th>
+            <th>{{customer.creationDateTime}}</th>
+
+
+          </tr>
+        </table>
+
+        <div class="list-group mb-3">
+        </div>
+        <div>
+          <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+          <button class="btn btn-primary" type="reset" (click)="onApplyCarLoanClick()">Apply for Car Loan</button>
+          <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+          <button type="submit" class="btn btn-primary " (click)="onApplyHomeLoanClick()">Apply for Home Loan</button>
+          <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+          <button class="btn btn-primary" type="reset" (click)="onApplyEducationLoanClick()">Apply for Education Loan</button>
+          <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+          <button type="submit" class="btn btn-primary " (click)="onApplyPersonalLoanClick()">Apply for Personal Loan</button>
+        </div>
+
+        <div class="list-group mb-5">
+        </div>
+
+        <div *ngIf="ApplyCarLoanClick">
+          <form [formGroup]="newCarLoanForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLoanNumber">Loan Number</label>
+                <input class="form-control" id="inputloannumber4" placeholder="Loan Number" formControlName="carloanID">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputCustomerNumber4">Customer Number</label>
+                <input type="text" class="form-control" id="inputcustomernumber4" placeholder="CustomerNumber" formControlName="carcustomerID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAmount">Loan Amount</label>
+              <input type="number" class="form-control" id="inputAmount" placeholder="100000" formControlName="carloanAmount">
+            </div>
+            <div class="form-group">
+              <label for="inputLicense">License</label>
+              <input type="text" class="form-control" id="inputLicense" placeholder="AX1220991234567" formControlName="carlicense">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputDuration">Loan Duration</label>
+                <input type="number" class="form-control" id="inputDuration" placeholder=" 1.0" formControlName="carloanDuration">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="reset" (click)="onResetLoanClick()">Reset</button>
+            <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+            <button type="submit" class="btn btn-primary " (click)="onSubmitLoanClick()">Submit</button>
+          </form>
+        </div>
+
+        <div *ngIf="ApplyHomeLoanClick">
+          <form [formGroup]="newHomeLoanForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLoanNumber">Loan Number</label>
+                <input class="form-control" id="inputloannumber4" placeholder="Loan Number" formControlName="homeloanID">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputCustomerNumber4">Customer Number</label>
+                <input type="text" class="form-control" id="inputcustomernumber4" placeholder="CustomerNumber" formControlName="homecustomerID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAmount">Loan Amount</label>
+              <input type="number" class="form-control" id="inputAmount" placeholder="100000" formControlName="homeloanAmount">
+            </div>
+            <div class="form-group">
+              <label for="inputLicense">Collateral</label>
+              <input type="number" class="form-control" id="inputLicense" placeholder="1000000" formControlName="homecollateral">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputDuration">Loan Duration</label>
+                <input type="number" class="form-control" id="inputDuration" placeholder=" 1.0" formControlName="homeloanDuration">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="reset" (click)="onResethomeLoanClick()">Reset</button>
+            <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+            <button type="submit" class="btn btn-primary " (click)="onSubmitHomeLoanClick()">Submit</button>
+          </form>
+        </div>
+
+        <div *ngIf="ApplyEducationLoanClick">
+          <form [formGroup]="newEducationLoanForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLoanNumber">Loan Number</label>
+                <input class="form-control" id="inputloannumber4" placeholder="Loan Number" formControlName="educationloanID">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputCustomerNumber4">Customer Number</label>
+                <input type="text" class="form-control" id="inputcustomernumber4" placeholder="CustomerNumber" formControlName="educationcustomerID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAmount">Loan Amount</label>
+              <input type="number" class="form-control" id="inputAmount" placeholder="100000" formControlName="educationloanAmount">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLicense">Collateral</label>
+                <input type="number" class="form-control" id="inputEdColl" placeholder="1000000" formControlName="educationcollateral">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputLicense">College Name</label>
+                <input type="text" class="form-control" id="inputLicense" placeholder="1000000" formControlName="educationcollegeName">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputDuration">Loan Duration</label>
+                <input type="number" class="form-control" id="inputDuration" placeholder=" 1.0" formControlName="educationloanDuration">
+              </div>
+            </div>
+
+
+            <button class="btn btn-primary" type="reset" (click)="onResetLoanClick()">Reset</button>
+            <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+            <button type="submit" class="btn btn-primary " (click)="onSubmitEducationLoanClick()">Submit</button>
+          </form>
+        </div>
+
+        <div *ngIf="ApplyPersonalLoanClick">
+          <form [formGroup]="newPersonalLoanForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLoanNumber">Loan Number</label>
+                <input class="form-control" id="inputloannumber4" placeholder="Loan Number" formControlName="personalloanID">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputCustomerNumber4">Customer Number</label>
+                <input type="text" class="form-control" id="inputcustomernumber4" placeholder="CustomerNumber" formControlName="personalcustomerID">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAmount">Loan Amount</label>
+              <input type="number" class="form-control" id="inputAmount" placeholder="100000" formControlName="personalloanAmount">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLicense">Collateral</label>
+                <input type="number" class="form-control" id="inputEdColl" placeholder="1000000" formControlName="personalcollateral">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputLicense">Purpose</label>
+                <input type="text" class="form-control" id="inputLicense" placeholder="Medical" formControlName="personalpurpose">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputDuration">Loan Duration</label>
+                <input type="number" class="form-control" id="inputDuration" placeholder=" 1.0" formControlName="personalloanDuration">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="reset" (click)="onResetLoanClick()">Reset</button>
+            <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+            <button type="submit" class="btn btn-primary " (click)="onSubmitPersonalLoanClick()">Submit</button>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class=" col-md-9 col-lg-10" *ngIf="YourLoanClick">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Banking</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Car Loans
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showSuppliersSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+
+    <form [formGroup]="newCustomerform">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputcustomerNumber">Customer ID</label>
+          <input class="form-control" id="inputcustomerNumber" placeholder="Loan Number" formControlName="customerID">
+        </div>
+      </div>
+      <button class="btn btn-primary" type="reset" (click)="onResetLoanClick()">Reset</button>
+      <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+      <button type="submit" class="btn btn-primary " (click)="onSubmitEditNumberClick()">Submit</button>
+    </form>
+
+
+    <div *ngIf="SubmitEditNumber">
+
+      <table class="table mt-2">
+        <thead>
+          <tr class="table-secondary">
+            <th>Loan ID</th>
+            <th>Customer ID</th>
+            <th>Loan Type</th>
+            <th>Loan Amount</th>
+            <th>Loan Status</th>
+            <th>Created on</th>
+            <th>Action</th>
+
+          </tr>
+        </thead>
+        <tr *ngFor="let homeloan of homeloanscustomer; let index = index">
+          <td>{{homeloan.homeloanID}}</td>
+          <td>{{homeloan.homecustomerID}}</td>
+          <td>{{homeloan.homeloanType}}</td>
+          <td>{{homeloan.homeloanAmount}}</td>
+          <td>{{homeloan.homeloanStatus}}</td>
+          <td>{{homeloan.homecreationDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editSupplierModal" (click)="onEditSupplierClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSupplierModal" (click)="onDeleteSupplierClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let carloan of carloanscustomer; let index = index">
+          <td>{{carloan.carloanID}}</td>
+          <td>{{carloan.carcustomerID}}</td>
+          <td>{{carloan.carloanType}}</td>
+          <td>{{carloan.carloanAmount}}</td>
+          <td>{{carloan.carloanStatus}}</td>
+          <td>{{carloan.carcreationDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editSupplierModal" (click)="onEditSupplierClick()">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSupplierModal" (click)="onDeleteSupplierClick()">Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let educationloan of educationloanscustomer; let index = index">
+          <td>{{educationloan.educationloanID}}</td>
+          <td>{{educationloan.educationcustomerID}}</td>
+          <td>{{educationloan.educationloanType}}</td>
+          <td>{{educationloan.educationloanAmount}}</td>
+          <td>{{educationloan.educationloanStatus}}</td>
+          <td>{{educationloan.educationcreationDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editSupplierModal" (click)="onEditSupplierClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSupplierModal" (click)="onDeleteSupplierClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let personalloan of personalloanscustomer; let index = index">
+          <td>{{personalloan.personalloanID}}</td>
+          <td>{{personalloan.personalcustomerID}}</td>
+          <td>{{personalloan.personalloanType}}</td>
+          <td>{{personalloan.personalloanAmount}}</td>
+          <td>{{personalloan.personalloanStatus}}</td>
+          <td>{{personalloan.personalcreationDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editSupplierModal" (click)="onEditSupplierClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSupplierModal" (click)="onDeleteSupplierClick(index)">Delete</button>
+            </div>
+          </td>
+
+        </tr>
+      </table>
+      </div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Your Loan</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="newCarLoan">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputcustomerNumber">Customer Number</label>
+                <input class="form-control" id="inputcustomerNumber" placeholder="Customer Number" formControlName="customerNumber">
+                <label for="inputcustomerNumber">Customer Number</label>
+                <input class="form-control" id="inputcustomerNumber" placeholder="Customer Number" formControlName="customerNumber">
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="reset" (click)="onResetLoanClick()">Reset</button>
+            <span>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>
+            <button type="submit" class="btn btn-primary " (click)="onSubmitNumberClick()">Submit</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <div class=" col-md-9 col-lg-10" *ngIf="LoanListClick">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Banking</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Car Loans
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showSuppliersSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <div>
+    </div>
+
+    <table class="table mt-2">
+      <thead>
+        <tr class="table-secondary">
+          <th>Customer ID</th>
+          <th>Loan Amount</th>
+          <th>Loan Duration</th>
+          <th>Loan Type</th>
+          <th>Loan Status</th>
+          <th>Creation Dtae</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="CarLoanList">
+
+        <tr *ngFor="let carloan of carloans; let index = index">
+          <td style="font-size:120%">{{carloan.carcustomerID}}</td>
+          <td>{{carloan.carloanAmount}}</td>
+          <td>{{carloan.carloanDuration}}</td>
+          <td>{{carloan.carloanType}}</td>
+          <td>{{carloan.carloanStatus}}</td>
+          <td>{{carloan.carcreationDateTime}}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="HomeLoanList">
+        <tr *ngFor="let homeloan of homeloans; let index = index">
+          <td style="font-size:120%">{{homeloan.homecustomerID}}</td>
+          <td>{{homeloan.homeloanAmount}}</td>
+          <td>{{homeloan.homeloanDuration}}</td>
+          <td>{{homeloan.homeloanType}}</td>
+          <td>{{homeloan.homeloanStatus}}</td>
+          <td>{{homeloan.homecreationDateTime}}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="EducationLoanList">
+        <tr *ngFor="let educationloan of educationloans; let index = index">
+          <td style="font-size:120%">{{educationloan.educationcustomerID}}</td>
+          <td>{{educationloan.educationloanAmount}}</td>
+          <td>{{educationloan.educationloanDuration}}</td>
+          <td>{{educationloan.educationloanType}}</td>
+          <td>{{educationloan.educationloanStatus}}</td>
+          <td>{{educationloan.educationcreationDateTime}}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="PersonalLoanList">
+        <tr *ngFor="let personalloan of personalloans; let index = index">
+          <td style="font-size:120%">{{personalloan.personalcustomerID}}</td>
+          <td>{{personalloan.personalloanAmount}}</td>
+          <td>{{personalloan.personalloanDuration}}</td>
+          <td>{{personalloan.personalloanType}}</td>
+          <td>{{personalloan.personalloanStatus}}</td>
+          <td>{{personalloan.personalcreationDateTime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
