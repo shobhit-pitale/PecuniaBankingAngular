@@ -9,10 +9,8 @@
     "\\src\\app\\EmployeeModule\\CarLoans",
     "\\src\\app\\EmployeeModule\\Utilities",
     "\\src\\app\\EmployeeModule\\Utilities\\chequebooks",
-    "\\src\\app\\FakeBackend",
-    "\\src\\app\\Models",
-    "\\src\\app\\Services"
+    "\\src\\app\\FakeBackend"
   ],
-  "SelectedNode": "\\src\\app\\EmployeeModule\\CarLoans\\CarLoans.component.ts",
+  "SelectedNode": "\\src\\app\\AdminModule\\admin.module.ts",
   "PreviewInSolutionExplorer": false
 }
